@@ -14,6 +14,8 @@ class ReferralsController extends Controller
 
     public function show(ReferralCode $referralCode)
     {
-        dd($referralCode);
+        $referralCode->increment('visits');
+
+        return view('referrals.show', compact('referralCode'));
     }
 }
