@@ -10,4 +10,14 @@ trait HasReferrals
     {
         return $this->hasOne(ReferralCode::class);
     }
+
+    public function referralsEnabled()
+    {
+        return $this->hasReferralCode() && !is_null($this->paypal_email);
+    }
+
+    public function hasReferralCode()
+    {
+        return $this->referralCode()->exists();
+    }
 }

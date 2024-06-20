@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasReferrals;
 use App\Observers\UserObserver;
 use Illuminate\Notifications\Notifiable;
@@ -25,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'paypal_email'
     ];
 
     /**
