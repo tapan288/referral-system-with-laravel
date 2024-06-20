@@ -24,3 +24,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/referrals/{referralCode:code}', [ReferralsController::class, 'show'])
+    ->name('referrals.show');

@@ -20,4 +20,9 @@ trait HasReferrals
     {
         return $this->referralCode()->exists();
     }
+
+    public function referralLink()
+    {
+        return route('referrals.show', $this->referralCode);
+    }
 }
