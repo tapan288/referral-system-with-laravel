@@ -18,4 +18,15 @@ class ReferralsController extends Controller
 
         return view('referrals.show', compact('referralCode'));
     }
+
+    public function store(Request $request, ReferralCode $referralCode)
+    {
+        $referralCode->increment('clicks');
+
+        cookie()->queue(
+            cookie('referral_code', $referralCode->code, 60 * 24 * 30)
+        );
+
+        return redirect()->route('register');
+    }
 }
