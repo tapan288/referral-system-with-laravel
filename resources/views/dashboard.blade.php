@@ -14,7 +14,9 @@
                     @endif
 
                     @foreach ($plans as $plan)
-                        <a href="#">{{ $plan->title }} ({{ $plan->price }})</a>
+                        <a href="{{ route('checkout', $plan->slug) }}">
+                            {{ $plan->title }} ({{ $plan->price }})
+                        </a>
                     @endforeach
                 </div>
             </div>

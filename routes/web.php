@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/referrals', [ReferralsController::class, 'index'])
         ->middleware(RedirectIfNoReferralCode::class)
         ->name('referrals.index');
+
+    Route::get('checkout/{plan:slug}', CheckoutController::class)->name('checkout');
 });
 
 require __DIR__ . '/auth.php';
