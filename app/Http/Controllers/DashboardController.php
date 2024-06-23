@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use App\Models\ReferralCode;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,8 @@ class DashboardController extends Controller
             ->where('code', $request->cookie('referral_code'))
             ->first();
 
-        return view('dashboard', compact('referralCode'));
+        $plans = Plan::all();
+
+        return view('dashboard', compact('referralCode', 'plans'));
     }
 }
