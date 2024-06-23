@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasReferrals;
+use Laravel\Cashier\Billable;
 use App\Observers\UserObserver;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     use HasReferrals;
+    use Billable;
 
     /**
      * The attributes that are mass assignable.
