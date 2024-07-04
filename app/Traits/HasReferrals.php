@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\ReferralCode;
+use App\Models\ReferralPayment;
 
 trait HasReferrals
 {
@@ -19,6 +20,11 @@ trait HasReferrals
     public function hasReferralCode()
     {
         return $this->referralCode()->exists();
+    }
+
+    public function referralPayments()
+    {
+        return $this->hasMany(ReferralPayment::class);
     }
 
     public function referralLink()
