@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\DashboardController;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReferralsController;
 use App\Http\Middleware\RedirectIfNoReferralCode;
 

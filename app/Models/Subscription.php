@@ -10,4 +10,10 @@ class Subscription extends CashierSubscription
     {
         return $this->belongsTo(Plan::class, 'stripe_price', 'stripe_price');
     }
+
+    public function referralCodes()
+    {
+        return $this->belongsToMany(ReferralCode::class)
+            ->withPivot('multiplier');
+    }
 }
