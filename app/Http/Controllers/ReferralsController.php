@@ -9,7 +9,9 @@ class ReferralsController extends Controller
 {
     public function index()
     {
-        return view('referrals.index');
+        return view('referrals.index', [
+            'referralCode' => auth()->user()->referralCode,
+        ]);
     }
 
     public function show(ReferralCode $referralCode)
