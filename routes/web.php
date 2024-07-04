@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\GenerateReferralPayout;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -15,6 +16,10 @@ Route::get('/', function () {
 Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('payout', function () {
+    GenerateReferralPayout::dispatch();
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
