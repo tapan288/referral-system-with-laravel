@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Jobs\GenerateReferralPayout;
+use App\Notifications\ReferralPayout;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
@@ -17,7 +19,8 @@ Route::get('/dashboard', DashboardController::class)
     ->name('dashboard');
 
 Route::get('payout', function () {
-    GenerateReferralPayout::dispatch();
+    // GenerateReferralPayout::dispatch();
+    User::where('email', 'admin@admin.com')->first()->notify(new ReferralPayout());
 });
 
 Route::middleware('auth')->group(function () {
