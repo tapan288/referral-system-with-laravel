@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-                @foreach ($referralCode->subscriptions as $subscription)
+                @forelse ($subscriptions as $subscription)
                     <tr>
                         <td class="py-3 pl-0 text-left">
                             {{ $subscription->created_at->toDateString() }}
@@ -28,12 +28,17 @@
                             {{ $subscription->plan->title }}
                         </td>
                         <td class="py-3 pl-0 text-left">
-                            {{ $subscription->pivot->multiplier * 100 }}% (
-                            {{ $subscription->plan->price->multiply($subscription->pivot->multiplier) }}
-                            )
+                            {{ $subscription->pivot->multiplier * 100 }}%
+                            ({{ $subscription->plan->price->multiply($subscription->pivot->multiplier) }})
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td class="text-gray-500">-</td>
+                        <td class="text-gray-500">-</td>
+                        <td class="text-gray-500">-</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

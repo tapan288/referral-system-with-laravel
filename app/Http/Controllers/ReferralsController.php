@@ -11,6 +11,7 @@ class ReferralsController extends Controller
     {
         return view('referrals.index', [
             'referralCode' => auth()->user()->referralCode,
+            'subscriptions' => auth()->user()->referralCode->subscriptions()->notCanceled()->get()
         ]);
     }
 
