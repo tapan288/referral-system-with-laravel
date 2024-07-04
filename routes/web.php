@@ -1,7 +1,6 @@
 <?php
 
 use App\Jobs\GenerateReferralPayout;
-use App\Models\Subscription;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;

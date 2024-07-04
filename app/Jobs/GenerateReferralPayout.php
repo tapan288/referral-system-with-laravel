@@ -27,13 +27,21 @@ class GenerateReferralPayout implements ShouldQueue
     public function handle(): void
     {
         $payouts = ReferralPayment::query()
-            ->with('user')
             ->where('available_at', '<=', now()->startOfDay())
             ->whereNull('paid_at');
 
         if ($payouts->count() === 0) {
             return;
         }
+
+        $records = $payouts
+            ->selectRaw('SUM(amount) as amount,users.paypal_email')
+            ->leftJoin('users', 'users.id', 'referral_payments.user_id')
+            ->groupBy('user_id')
+            ->get()
+            ->toArray();
+
+        dd($records);
 
         //email the admin
 
