@@ -9,9 +9,22 @@ class ReferralsController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
         return view('referrals.index', [
-            'referralCode' => auth()->user()->referralCode,
-            'subscriptions' => auth()->user()->referralCode->subscriptions()->notCanceled()->get()
+            'referralCode' => $user->referralCode,
+            'subscriptions' => $user
+                ->referralCode
+                ->subscriptions()
+                ->notCanceled()
+                ->get(),
+            'payouts' => $user
+                ->referralPayments()
+                ->whereNotNull('paid_at')
+                ->select('paid_at')
+                ->selectRaw('SUM(amount) as amount')
+                ->groupBy('paid_at')
+                ->get()
         ]);
     }
 

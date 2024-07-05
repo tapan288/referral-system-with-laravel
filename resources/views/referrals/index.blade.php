@@ -23,6 +23,11 @@
                     @include('referrals.partials.referral-subscriptions')
                 </div>
             </div>
+            <div class="p-4 sm:p-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('referrals.partials.referral-payouts')
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

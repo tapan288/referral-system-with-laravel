@@ -13,6 +13,13 @@ class ReferralPayment extends Model
 
     protected $guarded = [];
 
+    protected function casts(): array
+    {
+        return [
+            'paid_at' => 'date',
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
