@@ -2,12 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Models\ReferralPayment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use App\Models\ReferralPayment;
+use App\Notifications\ReferralPayout;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class GenerateReferralPayout implements ShouldQueue
 {
@@ -34,19 +36,17 @@ class GenerateReferralPayout implements ShouldQueue
             return;
         }
 
-        $records = $payouts
-            ->selectRaw('SUM(amount) as amount,users.paypal_email')
-            ->leftJoin('users', 'users.id', 'referral_payments.user_id')
-            ->groupBy('user_id')
-            ->get()
-            ->toArray();
-
-        dd($records);
-
-        //email the admin
-
         $payouts->update([
             'paid_at' => now()
         ]);
+
+        $records = $payouts
+            ->selectRaw('SUM(amount) as amount,users.paypal_email')
+            ->leftJoin('users', 'users.id', 'referral_payments.user_id')
+            ->groupBy('user_id');
+
+        User::where('email', 'admin@admin.com')
+            ->first()
+            ->notify(new ReferralPayout($records));
     }
 }

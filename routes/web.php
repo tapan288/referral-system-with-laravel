@@ -19,8 +19,8 @@ Route::get('/dashboard', DashboardController::class)
     ->name('dashboard');
 
 Route::get('payout', function () {
-    // GenerateReferralPayout::dispatch();
-    User::where('email', 'admin@admin.com')->first()->notify(new ReferralPayout());
+    GenerateReferralPayout::dispatch();
+    // User::where('email', 'admin@admin.com')->first()->notify(new ReferralPayout());
 });
 
 Route::middleware('auth')->group(function () {

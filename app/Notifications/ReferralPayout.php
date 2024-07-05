@@ -2,10 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Exports\ReferralPayoutExport;
 use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Attachment;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReferralPayout extends Notification
 {
@@ -14,7 +18,7 @@ class ReferralPayout extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected Builder $payouts)
     {
         //
     }
@@ -36,6 +40,10 @@ class ReferralPayout extends Notification
     {
         return (new MailMessage)
             ->line('Referral Payout Notification')
+            ->attach(Attachment::fromData(function () {
+                return Excel::raw(new ReferralPayoutExport($this->payouts), 'Csv');
+            }, now()->format('Y-m-d') . '-referral-payout.csv')
+                ->withMime('text/csv'))
             // ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
     }
